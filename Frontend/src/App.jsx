@@ -20,7 +20,7 @@ import {
 import * as THREE from "three";
 import NET from "vanta/dist/vanta.net.min";
 
-function VantaBackground({ children }) {
+export function VantaBackground({ children }) {
   const ref = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
 
