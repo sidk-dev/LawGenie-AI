@@ -2,6 +2,7 @@
 import TeamCard from "./TeamCard";
 import shobhitPhoto from "../../assets/shobhit.jpg";
 import tusharPhoto from "../../assets/tushar.jpeg";
+import siddarthPhoto from "../../assets/siddarth.jpeg";
 const teamData = [
   {
     id: 1,
@@ -15,7 +16,7 @@ const teamData = [
     id: 2,
     name: "Siddhant Kumar",
     role: "Co-Founder",
-    image: "#",
+    image: siddarthPhoto,
     linkedin: "#",
     github: "#"
   },
