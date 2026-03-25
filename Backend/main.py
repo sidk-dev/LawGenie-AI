@@ -21,8 +21,7 @@ app.add_middleware(
     # List of origins that are allowed to make requests
     # Include active frontend dev ports and common local hosts.
     allow_origins=[
-        "http://localhost:5178",
-        "http://127.0.0.1:8000"
+        "https://law-genie-ai.vercel.app"
     ],
     allow_credentials=True,     # Allow cookies/auth headers
     # Allow all methods (GET, POST, PUT, DELETE, etc.)
@@ -32,8 +31,8 @@ app.add_middleware(
 
 # Include Routes
 app.include_router(chat_router, prefix="/chat", tags=["Chat"])
-app.include_router(search_router, prefix="/search", tags=["Search"])
-app.include_router(train_router, prefix="/train", tags=["Training"])
+# app.include_router(search_router, prefix="/search", tags=["Search"])
+# app.include_router(train_router, prefix="/train", tags=["Training"])
 
 # uvicorn main:app --reload
 # http://127.0.0.1:8000/docs
