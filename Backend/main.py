@@ -43,23 +43,8 @@ app.add_middleware(
 
 # Include Routes: Chat and Search only (no training)
 app.include_router(chat_router, prefix="/chat", tags=["Chat"])
-<<<<<<< HEAD
-app.include_router(search_router, prefix="/search", tags=["Search"])
-
-
-@app.get("/health")
-def health_check():
-    """Check if the chat service is running."""
-    return {
-        "status": "healthy",
-        "service": "chat",
-        "message": "Chat and search service is running"
-    }
-
-=======
 # app.include_router(search_router, prefix="/search", tags=["Search"])
 # app.include_router(train_router, prefix="/train", tags=["Training"])
->>>>>>> 38c647e14856153b40cf968a5c373e6901da4b0a
 
 # uvicorn main:app --reload
 # http://127.0.0.1:8000/docs
