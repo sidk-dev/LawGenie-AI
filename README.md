@@ -1,126 +1,148 @@
 # LawGenie AI
 
-LawGenie AI is a React + Vite frontend for an AI legal assistant focused on Indian law research and document-aware Q&A. It includes a modern landing page, an interactive chat interface, file attachment support, and configurable API integration.
+LawGenie AI is a full-stack legal assistant platform for Indian law research and document-aware Q&A.
+It combines a FastAPI backend for retrieval, training, and chat sessions with a React + Vite frontend for an interactive user experience.
 
-## Highlights
+## Features
 
-- AI chat interface for legal questions
-- File attachment support in chat (`.pdf`, `.txt`, `.csv`, `.doc`, `.docx`)
-- Message history UI with typing state and timestamps
-- Theme switching (light, dark, system)
-- Responsive landing page with feature and use-case sections
-- Axios-based API client with centralized environment configuration
+- Legal Q&A chat with conversation history
+- JWT-based session continuity for chat users
+- MongoDB-backed document storage and retrieval
+- Training pipeline to ingest and index legal data
+- Search endpoint with multiple retrieval modes
+- Responsive React interface with theme support
+
+## Repository Structure
+
+```text
+LawGenie-AI/
+├─ Backend/                  # FastAPI app, retrieval pipeline, training logic
+├─ Frontend/                 # React + Vite web app
+├─ pdfs/                     # Project-level PDF assets
+├─ CONTRIBUTING.md
+├─ CODE_OF_CONDUCT.md
+├─ SECURITY.md
+├─ CHANGELOG.md
+└─ README.md
+```
 
 ## Tech Stack
+
+### Backend
+
+- Python
+- FastAPI + Uvicorn
+- MongoDB (PyMongo)
+- Groq API client
+- Sentence Transformers / Torch
+
+### Frontend
 
 - React 19
 - Vite 7
 - Tailwind CSS 4
 - React Router 7
 - Axios
-- Heroicons
-- Vanta.js + Three.js
 
-## Project Structure
+## Prerequisites
 
-```text
-LawGenie-AI/
-├─ Frontend/
-│  ├─ public/
-│  ├─ src/
-│  │  ├─ api/                # API wrappers
-│  │  ├─ components/         # Reusable UI components
-│  │  ├─ config/             # Environment configuration
-│  │  ├─ constants/          # Static messages/rules
-│  │  ├─ hooks/              # Custom hooks (theme)
-│  │  ├─ layouts/            # App layout shell
-│  │  ├─ pages/              # Route pages (landing/chat)
-│  │  └─ services/           # Chat service abstraction
-│  ├─ index.html
-│  ├─ package.json
-│  └─ vite.config.js
-└─ LICENSE
+- Python 3.10+
+- Node.js 20+
+- npm 10+
+- MongoDB (local or Atlas)
+
+## Quick Start
+
+### 1) Clone and open project
+
+```bash
+git clone <your-repo-url>
+cd LawGenie-AI
 ```
 
-## Getting Started
+### 2) Backend setup
 
-### 1) Prerequisites
+```bash
+cd Backend
+python -m venv .venv
+```
 
-- Node.js 20+ (recommended)
-- npm 10+ (recommended)
+Windows PowerShell:
 
-### 2) Install dependencies
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create `Backend/.env` and set required values:
+
+```env
+GROQ_API_KEY=your_groq_key
+JWT_SECRET_KEY=your_jwt_secret
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DB_NAME=lawgenie
+GROQ_MODEL=openai/gpt-oss-120b
+```
+
+Run API:
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend docs: `http://127.0.0.1:8000/docs`
+
+### 3) Frontend setup
+
+Open a new terminal:
 
 ```bash
 cd Frontend
 npm install
 ```
 
-### 3) Configure environment
-
-Create a `.env` file inside `Frontend/`:
+Create `Frontend/.env`:
 
 ```env
-VITE_API_BASE_URL=http://localhost:8000
+VITE_API_BASE_URL=http://127.0.0.1:8000
 ```
 
-> The app requires `VITE_API_BASE_URL` at startup.
-
-### 4) Run development server
+Run frontend:
 
 ```bash
 npm run dev
 ```
 
-Default dev server: `http://localhost:5178`
+Default Vite URL is shown in terminal (commonly `http://localhost:5173` or `http://localhost:5178`).
 
-## Available Scripts
+## API Overview
 
-From the `Frontend/` directory:
+Base URL: `http://127.0.0.1:8000`
 
-- `npm run dev` — Start Vite development server
-- `npm run build` — Create production build
-- `npm run preview` — Preview production build locally
-- `npm run lint` — Run ESLint
+- `GET /chat/?q=...` - Ask legal query and get AI response
+- `GET /chat/history` - Get chat history for bearer token
+- `GET /search/?q=...&top_k=5&mode=auto` - Search indexed legal corpus
+- `POST /train/` - Trigger training/ingestion pipeline
 
-## API Expectations
+## Development Notes
 
-The frontend sends chat requests to:
+- Backend CORS currently allows selected localhost origins.
+- Frontend API layer is in `Frontend/src/api` and `Frontend/src/services`.
+- Chat authorization uses `Authorization: Bearer <token>` when available.
 
-- `GET /chat/?q=<user message>`
+## Contributing
 
-Optional request auth header:
+Please read `CONTRIBUTING.md` before opening issues or pull requests.
 
-```http
-Authorization: Bearer <token>
-```
+## Security
 
-Response shape:
+To report vulnerabilities, see `SECURITY.md`.
 
-```json
-{
-  "query": "<user message>",
-  "response": {
-    "query": "<user message>",
-    "answer": "<assistant reply>",
-    "context_count": 3
-  },
-  "token": "<jwt token>",
-  "token_status": "new|existing|regenerated",
-  "history": []
-}
-```
+## License
 
-The UI extracts assistant text from these fields:
-
-- `answer`
-- `response.answer`
-- `message`
-- `data.answer`
-- `data.message`
-
-## Notes
-
-- Path alias `@` points to `Frontend/src`.
-- Chat input message length limit is up to 2000 characters.
-- If the API is unreachable or returns an unexpected payload, a fallback error message is shown in chat.
+This project is licensed under the terms in `LICENSE`.
