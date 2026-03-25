@@ -7,7 +7,7 @@ const teamData = [
   {
     id: 1,
     name: "Siddharth Kumar",
-    role: "Frontend Lead – AI & RAG",
+    role: "Frontend Lead",
     shortDescription:
       "Builds responsive React interfaces and contributes to AI features including RAG and LLM APIs.",
     expertise: "Frontend + Backend + AI",
@@ -20,7 +20,7 @@ const teamData = [
     name: "Tushar Saini",
     role: "Backend Lead",
     shortDescription:
-      "Designs robust APIs, manages database architecture, and powers intelligent backend systems.",
+      "Designs robust APIs, manages database architecture, and builds AI-powered backend systems.",
     expertise: "Backend + DB + AI",
     image: tusharPhoto,
     linkedin: "https://www.linkedin.com/in/tushar-saini-105865373/",
@@ -29,7 +29,7 @@ const teamData = [
   {
     id: 3,
     name: "Shobhit Singh",
-    role: "Interconnection Lead",
+    role: "Integration Lead",
     shortDescription:
       "Aligns frontend, backend, and data preprocessing modules for smooth end-to-end integration.",
     expertise: "Frontend + Backend + DP",
